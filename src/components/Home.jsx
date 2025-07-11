@@ -1,21 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { clearMessage } from '../store/slices/authSlice';
+import { useAppSelector } from '../hooks/redux';
 
 const Home = () => {
-  const dispatch = useAppDispatch();
-  const { user, message } = useAppSelector(state => state.auth);
-
-  // Clear message after 3 seconds
-  useEffect(() => {
-    if (message) {
-      const timer = setTimeout(() => {
-        dispatch(clearMessage());
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [message, dispatch]);
+  const { user } = useAppSelector(state => state.auth);
 
   return (
     <div className="home-container">

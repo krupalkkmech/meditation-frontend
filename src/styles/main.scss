@@ -664,6 +664,14 @@ body {
     padding: 0 1.5rem;
   }
 
+  .about-container {
+    padding: 0 1.5rem;
+  }
+
+  .about-title {
+    font-size: 2.5rem;
+  }
+
   .pricing-header h1 {
     font-size: 2.5rem;
   }
@@ -741,6 +749,37 @@ body {
     grid-template-columns: 1fr;
   }
 
+  // Form container mobile styles
+  .form-container {
+    max-width: 90%;
+    margin: 1rem auto;
+    padding: 1.5rem;
+  }
+
+  .form-title {
+    font-size: 1.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  // About page mobile styles
+  .about-container {
+    padding: 0 1rem;
+  }
+
+  .about-content {
+    padding: 2rem 0;
+  }
+
+  .about-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-text p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
   .pricing-header {
     margin-bottom: 2rem;
 
@@ -787,6 +826,61 @@ body {
 
   .home-container {
     padding: 0 0.75rem;
+  }
+
+  // Form container mobile styles
+  .form-container {
+    max-width: 95%;
+    margin: 0.5rem auto;
+    padding: 1.25rem;
+  }
+
+  .form-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 0.875rem;
+  }
+
+  .form-input {
+    padding: 0.625rem;
+    font-size: 0.9rem;
+  }
+
+  .form-button {
+    padding: 0.625rem;
+    font-size: 0.9rem;
+  }
+
+  .form-switch {
+    margin-top: 0.875rem;
+    font-size: 0.8rem;
+
+    button {
+      font-size: 0.8rem;
+    }
+  }
+
+  // About page mobile styles
+  .about-container {
+    padding: 0 0.75rem;
+  }
+
+  .about-content {
+    padding: 1.5rem 0;
+  }
+
+  .about-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .about-text p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
   }
 
   .hero-section {
@@ -838,5 +932,40 @@ body {
   .pricing-btn {
     padding: 0.875rem 1.5rem;
     font-size: 1rem;
+  }
+}
+
+// About page styles
+.about-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.about-content {
+  text-align: center;
+  padding: 3rem 0;
+}
+
+.about-title {
+  font-size: 3rem;
+  color: $primary-color;
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+.about-text {
+  max-width: 600px;
+  margin: 0 auto;
+
+  p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: $text-color;
+    margin-bottom: 1.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }

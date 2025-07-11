@@ -1,7 +1,5 @@
-/* global process */
-
 const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001/api';
+  import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api';
 
 // Helper function to get auth token from localStorage
 const getAuthToken = () => {
@@ -57,9 +55,10 @@ export const authAPI = {
       body: JSON.stringify(userData),
     });
 
-    if (response.success && response.data?.token) {
-      setAuthToken(response.data.token);
-    }
+    // Don't set token for signup - user should login separately
+    // if (response.success && response.data?.token) {
+    //   setAuthToken(response.data.token);
+    // }
 
     return response;
   },

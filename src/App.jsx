@@ -7,6 +7,7 @@ import {
   Routes,
 } from 'react-router-dom';
 
+import About from './components/About';
 import AuthLayout from './components/AuthLayout';
 import Dashboard from './components/Dashboard';
 import Header from './components/Header';
@@ -79,6 +80,15 @@ const AppRoutes = () => {
             element={
               <ProtectedRoute user={user}>
                 <Pricing />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/about"
+            element={
+              <ProtectedRoute user={user}>
+                <About />
               </ProtectedRoute>
             }
           />

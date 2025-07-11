@@ -26,8 +26,7 @@ const Header = () => {
 
   const handleAboutClick = () => {
     closeMenu();
-    // Add about page navigation here
-    console.log('About clicked');
+    navigate('/about');
   };
 
   const handlePricingClick = () => {

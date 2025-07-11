@@ -2,13 +2,31 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { authAPI, getAuthToken } from '../../services/api';
 
-// Async thunk for user signup
+// Async thunk for user signup (without auto-login)
 export const signupUser = createAsyncThunk(
   'auth/signup',
   async (userData, { rejectWithValue }) => {
     try {
       const response = await authAPI.signup(userData);
-      return response.data;
+      // Don't set token for signup - user should login separately
+      return { success: true, message: response.message };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+// Async thunk for user signup with auto-login (if needed in future)
+export const signupUserAndLogin = createAsyncThunk(
+  'auth/signupAndLogin',
+  async (userData, { rejectWithValue }) => {
+    try {
+      const response = await authAPI.signup(userData);
+      if (response.success && response.data?.token) {
+        // Auto-login after signup
+        return response.data;
+      }
+      return rejectWithValue('Signup successful but login failed');
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -90,6 +108,7 @@ const initialState = {
   token: getAuthToken(),
   loading: false,
   error: null,
+  message: null,
   isAuthenticated: false,
 };
 
@@ -102,10 +121,14 @@ const authSlice = createSlice({
       state.token = null;
       state.isAuthenticated = false;
       state.error = null;
+      state.message = null;
       authAPI.logout();
     },
     clearError: state => {
       state.error = null;
+    },
+    clearMessage: state => {
+      state.message = null;
     },
     setUser: (state, action) => {
       state.user = action.payload;
@@ -118,15 +141,36 @@ const authSlice = createSlice({
       .addCase(signupUser.pending, state => {
         state.loading = true;
         state.error = null;
+        state.message = null;
       })
       .addCase(signupUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.message =
+          action.payload.message ||
+          'Account created successfully! Please login.';
+        state.error = null;
+        // Don't set user or token - user should login separately
+      })
+      .addCase(signupUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.message = null;
+      });
+
+    // Signup with auto-login cases (for future use)
+    builder
+      .addCase(signupUserAndLogin.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(signupUserAndLogin.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isAuthenticated = true;
         state.error = null;
       })
-      .addCase(signupUser.rejected, (state, action) => {
+      .addCase(signupUserAndLogin.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
@@ -218,6 +262,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { logoutUser, clearError, setUser } = authSlice.actions;
+export const { logoutUser, clearError, clearMessage, setUser } =
+  authSlice.actions;
 
 export default authSlice.reducer;

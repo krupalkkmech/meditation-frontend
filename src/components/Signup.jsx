@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { clearError, signupUser } from '../store/slices/authSlice';
+import {
+  clearError,
+  clearMessage,
+  signupUser,
+} from '../store/slices/authSlice';
 
 const Signup = ({ onSwitchToLogin }) => {
   const dispatch = useAppDispatch();
-  const { loading, error } = useAppSelector(state => state.auth);
+  const { loading, error, message } = useAppSelector(state => state.auth);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -14,6 +18,27 @@ const Signup = ({ onSwitchToLogin }) => {
     confirmPassword: '',
   });
   const [errors, setErrors] = useState({});
+
+  // Clear message after 5 seconds and redirect to login
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        dispatch(clearMessage());
+        onSwitchToLogin(); // Redirect to login page
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [message, dispatch, onSwitchToLogin]);
+
+  // Clear error when user starts typing
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        dispatch(clearError());
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [error, dispatch]);
 
   const validateForm = () => {
     const newErrors = {};
@@ -88,6 +113,13 @@ const Signup = ({ onSwitchToLogin }) => {
     <div className="form-container">
       <h2 className="form-title">Sign Up</h2>
 
+      {/* Success Message */}
+      {message && (
+        <div className="form-success" style={{ marginBottom: '1rem' }}>
+          {message}
+        </div>
+      )}
+
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name" className="form-label">
@@ -161,6 +193,7 @@ const Signup = ({ onSwitchToLogin }) => {
           )}
         </div>
 
+        {/* Error Message */}
         {error && <div className="form-error">{error}</div>}
 
         <button type="submit" className="form-button" disabled={loading}>
