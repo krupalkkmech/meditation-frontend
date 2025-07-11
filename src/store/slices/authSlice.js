@@ -114,7 +114,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload;
         state.error = null;
-        state.message = 'Login successful!';
+        state.message = 'Login successful! Redirecting to home...';
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
@@ -132,7 +132,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload;
         state.error = null;
-        state.message = 'Account created successfully!';
+        state.message = 'Account created successfully! Redirecting to home...';
       })
       .addCase(signupUser.rejected, (state, action) => {
         state.loading = false;

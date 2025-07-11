@@ -9,6 +9,7 @@ import {
 
 import AuthLayout from './components/AuthLayout';
 import Dashboard from './components/Dashboard';
+import Home from './components/Home';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
@@ -34,7 +35,7 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      {/* Public routes - redirect to dashboard if authenticated */}
+      {/* Public routes - redirect to home if authenticated */}
       <Route
         path="/auth"
         element={
@@ -45,6 +46,15 @@ const AppRoutes = () => {
       />
 
       {/* Protected routes - redirect to auth if not authenticated */}
+      <Route
+        path="/home"
+        element={
+          <ProtectedRoute user={user}>
+            <Home />
+          </ProtectedRoute>
+        }
+      />
+
       <Route
         path="/dashboard"
         element={
@@ -59,7 +69,7 @@ const AppRoutes = () => {
         path="/"
         element={
           user ? (
-            <Navigate to="/dashboard" replace />
+            <Navigate to="/home" replace />
           ) : (
             <Navigate to="/auth" replace />
           )
@@ -71,7 +81,7 @@ const AppRoutes = () => {
         path="*"
         element={
           user ? (
-            <Navigate to="/dashboard" replace />
+            <Navigate to="/home" replace />
           ) : (
             <Navigate to="/auth" replace />
           )
