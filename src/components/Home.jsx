@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { clearMessage, logoutUser } from '../store/slices/authSlice';
+import { clearMessage } from '../store/slices/authSlice';
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -17,27 +17,11 @@ const Home = () => {
     }
   }, [message, dispatch]);
 
-  const handleLogout = () => {
-    dispatch(logoutUser());
-  };
-
   return (
     <div className="home-container">
-      <header className="home-header">
-        <h1>Welcome to Hackathod</h1>
-        <div className="user-info">
-          <span>Hello, {user?.name}!</span>
-          <button onClick={handleLogout} className="logout-btn">
-            Logout
-          </button>
-        </div>
-      </header>
-
-      {message && <div className="form-success">{message}</div>}
-
       <main className="home-main">
         <section className="hero-section">
-          <h2>Your Dashboard</h2>
+          <h2>Welcome to Your Dashboard</h2>
           <p>You're successfully logged in and ready to explore!</p>
         </section>
 

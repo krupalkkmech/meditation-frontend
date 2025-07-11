@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { clearMessage, logoutUser } from '../store/slices/authSlice';
+import { clearMessage } from '../store/slices/authSlice';
 
 const Dashboard = ({ user }) => {
   const dispatch = useAppDispatch();
@@ -17,10 +17,6 @@ const Dashboard = ({ user }) => {
     }
   }, [message, dispatch]);
 
-  const handleLogout = () => {
-    dispatch(logoutUser());
-  };
-
   return (
     <div className="form-container">
       <h2 className="form-title">Welcome, {user.name}!</h2>
@@ -28,13 +24,7 @@ const Dashboard = ({ user }) => {
       <div style={{ marginTop: '2rem' }}>
         <p>Email: {user.email}</p>
         <p>User ID: {user.id}</p>
-        <button
-          onClick={handleLogout}
-          className="form-button"
-          style={{ marginTop: '1rem' }}
-        >
-          Logout
-        </button>
+        <p>This is your dashboard page.</p>
       </div>
     </div>
   );

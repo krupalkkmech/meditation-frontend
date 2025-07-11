@@ -9,6 +9,7 @@ import {
 
 import AuthLayout from './components/AuthLayout';
 import Dashboard from './components/Dashboard';
+import Header from './components/Header';
 import Home from './components/Home';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
@@ -26,68 +27,78 @@ const AppRoutes = () => {
 
   if (loading) {
     return (
-      <div className="form-container">
-        <div className="loading" style={{ margin: '2rem auto' }}></div>
-        <p>Loading...</p>
-      </div>
+      <>
+        <Header />
+        <div className="main-content">
+          <div className="form-container">
+            <div className="loading" style={{ margin: '2rem auto' }}></div>
+            <p>Loading...</p>
+          </div>
+        </div>
+      </>
     );
   }
 
   return (
-    <Routes>
-      {/* Public routes - redirect to home if authenticated */}
-      <Route
-        path="/auth"
-        element={
-          <PublicRoute user={user}>
-            <AuthLayout />
-          </PublicRoute>
-        }
-      />
+    <>
+      <Header />
+      <div className="main-content">
+        <Routes>
+          {/* Public routes - redirect to home if authenticated */}
+          <Route
+            path="/auth"
+            element={
+              <PublicRoute user={user}>
+                <AuthLayout />
+              </PublicRoute>
+            }
+          />
 
-      {/* Protected routes - redirect to auth if not authenticated */}
-      <Route
-        path="/home"
-        element={
-          <ProtectedRoute user={user}>
-            <Home />
-          </ProtectedRoute>
-        }
-      />
+          {/* Protected routes - redirect to auth if not authenticated */}
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute user={user}>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
 
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute user={user}>
-            <Dashboard user={user} />
-          </ProtectedRoute>
-        }
-      />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute user={user}>
+                <Dashboard user={user} />
+              </ProtectedRoute>
+            }
+          />
 
-      {/* Default redirect */}
-      <Route
-        path="/"
-        element={
-          user ? (
-            <Navigate to="/home" replace />
-          ) : (
-            <Navigate to="/auth" replace />
-          )
-        }
-      />
+          {/* Default redirect */}
+          <Route
+            path="/"
+            element={
+              user ? (
+                <Navigate to="/home" replace />
+              ) : (
+                <Navigate to="/auth" replace />
+              )
+            }
+          />
 
-      {/* Catch all - redirect to appropriate page */}
-      <Route
-        path="*"
-        element={
-          user ? (
-            <Navigate to="/home" replace />
-          ) : (
-            <Navigate to="/auth" replace />
-          )
-        }
-      />
-    </Routes>
+          {/* Catch all - redirect to appropriate page */}
+          <Route
+            path="*"
+            element={
+              user ? (
+                <Navigate to="/home" replace />
+              ) : (
+                <Navigate to="/auth" replace />
+              )
+            }
+          />
+        </Routes>
+      </div>
+    </>
   );
 };
 

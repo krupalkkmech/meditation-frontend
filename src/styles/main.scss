@@ -30,8 +30,158 @@ body {
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   text-align: center;
+}
+
+// Main content padding for header
+.main-content {
+  padding-top: 2rem;
+  min-height: calc(100vh - 80px); // Account for header height
+}
+
+// Header styles
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(36, 36, 36, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem 0;
+}
+
+.header-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-brand {
+  .brand-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: $primary-color;
+    margin: 0;
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $primary-hover;
+    }
+  }
+}
+
+.header-auth {
+  .auth-text {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav-item {
+  margin: 0;
+}
+
+.nav-link {
+  background: none;
+  border: none;
+  color: $text-color;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: $primary-color;
+  }
+
+  &.logout-btn {
+    background: rgba(255, 107, 107, 0.1);
+    color: $error-color;
+    border: 1px solid rgba(255, 107, 107, 0.3);
+
+    &:hover {
+      background: rgba(255, 107, 107, 0.2);
+      border-color: $error-color;
+    }
+  }
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.hamburger {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: $text-color;
+  position: relative;
+  transition: all 0.3s ease;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background: $text-color;
+    transition: all 0.3s ease;
+  }
+
+  &::before {
+    top: -8px;
+  }
+
+  &::after {
+    bottom: -8px;
+  }
+
+  &.open {
+    background: transparent;
+
+    &::before {
+      top: 0;
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      bottom: 0;
+      transform: rotate(-45deg);
+    }
+  }
 }
 
 // Form styles
@@ -160,7 +310,7 @@ body {
 .home-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0;
+  padding: 0 2rem;
   text-align: left;
 }
 
@@ -316,7 +466,74 @@ body {
 }
 
 // Responsive design
+@media (max-width: 1024px) {
+  // Laptop
+  .header-container {
+    padding: 0 1.5rem;
+  }
+
+  .nav-menu {
+    gap: 1.5rem;
+  }
+
+  .home-container {
+    padding: 0 1.5rem;
+  }
+}
+
 @media (max-width: 768px) {
+  // Tablet
+  .header-container {
+    padding: 0 1rem;
+  }
+
+  .brand-name {
+    font-size: 1.5rem !important;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(36, 36, 36, 0.98);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    gap: 0;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+
+    &.open {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  .nav-item {
+    width: 100%;
+  }
+
+  .nav-link {
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
   .home-header {
     flex-direction: column;
     gap: 1rem;
@@ -334,5 +551,46 @@ body {
 
   .features-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  // Mobile
+  .header-container {
+    padding: 0 0.75rem;
+  }
+
+  .brand-name {
+    font-size: 1.3rem !important;
+  }
+
+  .home-container {
+    padding: 0 0.75rem;
+  }
+
+  .hero-section {
+    padding: 2rem 0;
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+  }
+
+  .user-card {
+    padding: 1.5rem;
+
+    .user-avatar {
+      width: 60px;
+      height: 60px;
+      font-size: 1.5rem;
+    }
+  }
+
+  .feature-card {
+    padding: 1rem;
   }
 }
