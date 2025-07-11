@@ -9,12 +9,14 @@ const Home = () => {
     <div className="home-container">
       <main className="home-main">
         <section className="hero-section">
-          <h2>Welcome to Your Dashboard</h2>
-          <p>You're successfully logged in and ready to explore!</p>
+          <h2>Welcome to Your Meditation Journey</h2>
+          <p>
+            Find your inner peace and cultivate mindfulness in your daily life
+          </p>
         </section>
 
         <section className="user-details">
-          <h3>Account Information</h3>
+          <h3>Your Wellness Profile</h3>
           <div className="user-card">
             <div className="user-avatar">
               <span>{user?.name?.charAt(0).toUpperCase()}</span>
@@ -27,30 +29,39 @@ const Home = () => {
                 <strong>Email:</strong> {user?.email}
               </p>
               <p>
-                <strong>User ID:</strong> {user?.id}
+                <strong>Member ID:</strong> {user?.id}
               </p>
             </div>
           </div>
         </section>
 
         <section className="features-section">
-          <h3>What's New</h3>
+          <h3>Meditation Features</h3>
           <div className="features-grid">
             <div className="feature-card">
-              <h4>🚀 Quick Start</h4>
-              <p>Get started with your first project</p>
+              <h4>🧘 Guided Sessions</h4>
+              <p>
+                Access hundreds of guided meditation sessions for all experience
+                levels
+              </p>
             </div>
             <div className="feature-card">
-              <h4>📊 Analytics</h4>
-              <p>View your project statistics</p>
+              <h4>🎵 Ambient Sounds</h4>
+              <p>
+                Immerse yourself in calming nature sounds and peaceful music
+              </p>
             </div>
             <div className="feature-card">
-              <h4>⚙️ Settings</h4>
-              <p>Manage your account preferences</p>
+              <h4>📊 Progress Tracking</h4>
+              <p>
+                Monitor your meditation journey with detailed progress insights
+              </p>
             </div>
             <div className="feature-card">
-              <h4>📝 Projects</h4>
-              <p>Create and manage your projects</p>
+              <h4>⏰ Daily Reminders</h4>
+              <p>
+                Set gentle reminders to maintain your daily meditation practice
+              </p>
             </div>
           </div>
         </section>

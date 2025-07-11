@@ -38,7 +38,7 @@ const Header = () => {
     <header className="header">
       <div className="header-container">
         <div className="header-brand">
-          <h1 className="brand-name">Hackathod</h1>
+          <h1 className="brand-name">ZenFlow</h1>
         </div>
 
         {user ? (

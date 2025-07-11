@@ -4,20 +4,21 @@ const About = () => {
   return (
     <div className="about-container">
       <div className="about-content">
-        <h1 className="about-title">About Hackathod</h1>
+        <h1 className="about-title">About ZenFlow</h1>
 
         <div className="about-text">
           <p>
-            Hackathod is a modern platform designed to streamline your
-            development workflow and enhance productivity.
+            ZenFlow is a peaceful meditation app designed to help you find inner
+            calm and mindfulness in your daily life.
           </p>
           <p>
-            We provide cutting-edge tools and features to help developers build,
-            deploy, and manage their projects efficiently.
+            We provide guided meditation sessions, ambient sounds, and
+            mindfulness tools to support your wellness journey and reduce
+            stress.
           </p>
           <p>
-            Our mission is to empower developers with the best resources and
-            support to bring their ideas to life.
+            Our mission is to make meditation accessible to everyone, helping
+            you cultivate peace, focus, and emotional well-being.
           </p>
         </div>
       </div>

@@ -12,6 +12,7 @@ import AuthLayout from './components/AuthLayout';
 import Dashboard from './components/Dashboard';
 import Header from './components/Header';
 import Home from './components/Home';
+import InstallPrompt from './components/InstallPrompt';
 import Pricing from './components/Pricing';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
@@ -118,6 +119,9 @@ const AppRoutes = () => {
           />
         </Routes>
       </div>
+
+      {/* PWA Install Prompt */}
+      <InstallPrompt />
     </>
   );
 };
