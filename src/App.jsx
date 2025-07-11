@@ -1,35 +1,92 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from 'react-router-dom';
+
+import AuthLayout from './components/AuthLayout';
+import Dashboard from './components/Dashboard';
+import ProtectedRoute from './components/ProtectedRoute';
+import PublicRoute from './components/PublicRoute';
+import { useAppDispatch, useAppSelector } from './hooks/redux';
+import { checkAuthStatus } from './store/slices/authSlice';
+
+const AppRoutes = () => {
+  const dispatch = useAppDispatch();
+  const { user, loading } = useAppSelector(state => state.auth);
+
+  useEffect(() => {
+    // Check authentication status on app load
+    dispatch(checkAuthStatus());
+  }, [dispatch]);
+
+  if (loading) {
+    return (
+      <div className="form-container">
+        <div className="loading" style={{ margin: '2rem auto' }}></div>
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Routes>
+      {/* Public routes - redirect to dashboard if authenticated */}
+      <Route
+        path="/auth"
+        element={
+          <PublicRoute user={user}>
+            <AuthLayout />
+          </PublicRoute>
+        }
+      />
+
+      {/* Protected routes - redirect to auth if not authenticated */}
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute user={user}>
+            <Dashboard user={user} />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Default redirect */}
+      <Route
+        path="/"
+        element={
+          user ? (
+            <Navigate to="/dashboard" replace />
+          ) : (
+            <Navigate to="/auth" replace />
+          )
+        }
+      />
+
+      {/* Catch all - redirect to appropriate page */}
+      <Route
+        path="*"
+        element={
+          user ? (
+            <Navigate to="/dashboard" replace />
+          ) : (
+            <Navigate to="/auth" replace />
+          )
+        }
+      />
+    </Routes>
+  );
+};
+
+function App() {
+  return (
+    <Router>
+      <AppRoutes />
+    </Router>
+  );
 }
 
-export default App
+export default App;
