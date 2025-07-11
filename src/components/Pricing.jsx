@@ -1,3 +1,4 @@
+/* global process */
 import React, { useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
@@ -118,7 +119,7 @@ const Pricing = () => {
 
       // Initialize Razorpay
       const options = {
-        key: 'rzp_test_YOUR_KEY_HERE', // Replace with your Razorpay test key
+        key: process.env.REACT_APP_RAZORPAY_KEY_ID || 'rzp_test_YOUR_KEY_HERE', // Use environment variable
         amount: plan.price * 100, // Amount in paise
         currency: plan.currency,
         name: 'Hackathod',

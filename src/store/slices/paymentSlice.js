@@ -1,25 +1,21 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
+import { paymentAPI } from '../../services/api';
+
 // Async thunk for creating order
 export const createOrder = createAsyncThunk(
   'payment/createOrder',
   async (planData, { rejectWithValue }) => {
     try {
-      // Simulate API call to create order
-      // In real implementation, this would be a call to your backend
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      const orderData = {
-        id: `order_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      const response = await paymentAPI.createOrder({
+        plan_id: planData.id,
         amount: planData.price * 100, // Convert to paise
         currency: planData.currency,
-        plan_id: planData.id,
         plan_name: planData.name,
-      };
-
-      return orderData;
-    } catch {
-      return rejectWithValue('Failed to create order');
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -29,22 +25,10 @@ export const verifyPayment = createAsyncThunk(
   'payment/verifyPayment',
   async (paymentData, { rejectWithValue }) => {
     try {
-      // Simulate API call to verify payment
-      // In real implementation, this would be a call to your backend
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      const verificationData = {
-        success: true,
-        payment_id: paymentData.razorpay_payment_id,
-        order_id: paymentData.razorpay_order_id,
-        plan_id: paymentData.plan_id,
-        amount: paymentData.amount,
-        currency: paymentData.currency,
-      };
-
-      return verificationData;
-    } catch {
-      return rejectWithValue('Payment verification failed');
+      const response = await paymentAPI.verifyPayment(paymentData);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
   }
 );
