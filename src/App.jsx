@@ -11,6 +11,7 @@ import AuthLayout from './components/AuthLayout';
 import Dashboard from './components/Dashboard';
 import Header from './components/Header';
 import Home from './components/Home';
+import Pricing from './components/Pricing';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
@@ -69,6 +70,15 @@ const AppRoutes = () => {
             element={
               <ProtectedRoute user={user}>
                 <Dashboard user={user} />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/pricing"
+            element={
+              <ProtectedRoute user={user}>
+                <Pricing />
               </ProtectedRoute>
             }
           />

@@ -24,6 +24,17 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
+  const handleAboutClick = () => {
+    closeMenu();
+    // Add about page navigation here
+    console.log('About clicked');
+  };
+
+  const handlePricingClick = () => {
+    closeMenu();
+    navigate('/pricing');
+  };
+
   return (
     <header className="header">
       <div className="header-container">
@@ -44,26 +55,12 @@ const Header = () => {
 
             <ul className={`nav-menu ${isMenuOpen ? 'open' : ''}`}>
               <li className="nav-item">
-                <button
-                  className="nav-link"
-                  onClick={() => {
-                    closeMenu();
-                    // Add about page navigation here
-                    console.log('About clicked');
-                  }}
-                >
+                <button className="nav-link" onClick={handleAboutClick}>
                   About
                 </button>
               </li>
               <li className="nav-item">
-                <button
-                  className="nav-link"
-                  onClick={() => {
-                    closeMenu();
-                    // Add pricing page navigation here
-                    console.log('Pricing clicked');
-                  }}
-                >
+                <button className="nav-link" onClick={handlePricingClick}>
                   Pricing
                 </button>
               </li>
