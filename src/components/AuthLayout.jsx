@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import { Alert, Box, Container, Paper } from '@mui/material';
+
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { clearError, clearMessage } from '../store/slices/authSlice';
 import Login from './Login';
@@ -33,23 +35,45 @@ const AuthLayout = () => {
   };
 
   return (
-    <div>
-      {/* Global success message */}
-      {message && (
-        <div
-          className="form-success"
-          style={{ marginBottom: '1rem', textAlign: 'center' }}
+    <Box
+      sx={{
+        minHeight: 'calc(100vh - 64px)',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        p: { xs: 2, sm: 3 },
+      }}
+    >
+      <Container maxWidth="sm">
+        <Paper
+          elevation={8}
+          sx={{
+            p: { xs: 3, sm: 4, md: 5 },
+            borderRadius: 3,
+            backgroundColor: 'background.paper',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+          }}
         >
-          {message}
-        </div>
-      )}
+          {/* Global success message */}
+          {message && (
+            <Alert
+              severity="success"
+              sx={{ mb: 3 }}
+              onClose={() => dispatch(clearMessage())}
+            >
+              {message}
+            </Alert>
+          )}
 
-      {isLogin ? (
-        <Login onSwitchToSignup={switchToSignup} />
-      ) : (
-        <Signup onSwitchToLogin={switchToLogin} />
-      )}
-    </div>
+          {isLogin ? (
+            <Login onSwitchToSignup={switchToSignup} />
+          ) : (
+            <Signup onSwitchToLogin={switchToLogin} />
+          )}
+        </Paper>
+      </Container>
+    </Box>
   );
 };
 

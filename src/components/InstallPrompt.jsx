@@ -50,10 +50,10 @@ const InstallPrompt = () => {
       <div className="install-prompt-content">
         <div className="install-prompt-icon">📱</div>
         <div className="install-prompt-text">
-          <h3>Install ZenFlow</h3>
+          <h3>Install TimeFlow</h3>
           <p>
-            Add to your home screen for peaceful meditation sessions and offline
-            access
+            Add to your home screen for quick access to your schedule and time
+            management tools
           </p>
         </div>
         <div className="install-prompt-actions">

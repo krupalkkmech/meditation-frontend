@@ -39,50 +39,50 @@ const Pricing = () => {
   const plans = [
     {
       id: 'basic',
-      name: 'Mindful Starter',
+      name: 'Starter Plan',
       price: 999,
       currency: 'INR',
       period: 'month',
       features: [
-        '5 guided meditation sessions',
-        'Basic ambient sounds',
-        'Daily meditation reminders',
-        'Progress tracking',
-        '1GB meditation content',
+        'Google Calendar integration',
+        'Daily schedule view',
+        'Basic task management',
+        'Email notifications',
+        '1GB storage',
       ],
       popular: false,
     },
     {
       id: 'pro',
-      name: 'Zen Pro',
+      name: 'Pro Plan',
       price: 1999,
       currency: 'INR',
       period: 'month',
       features: [
-        'Unlimited guided sessions',
-        'Premium ambient sounds',
-        'Personalized meditation plans',
-        'Advanced progress analytics',
-        '10GB premium content',
-        'Sleep meditation sessions',
-        'Stress relief programs',
+        'Advanced calendar sync',
+        'Smart scheduling suggestions',
+        'Priority task management',
+        'Productivity analytics',
+        '10GB storage',
+        'Time tracking',
+        'Team collaboration',
       ],
       popular: true,
     },
     {
       id: 'enterprise',
-      name: 'Wellness Complete',
+      name: 'Enterprise',
       price: 4999,
       currency: 'INR',
       period: 'month',
       features: [
-        'All Zen Pro features',
-        '1-on-1 meditation coaching',
-        'Custom meditation programs',
-        'Family wellness plans',
-        'Unlimited content access',
+        'All Pro features',
+        'Custom integrations',
+        'Advanced analytics',
+        'Team management',
+        'Unlimited storage',
         'Priority support',
-        'Wellness workshops',
+        'API access',
       ],
       popular: false,
     },
@@ -121,8 +121,8 @@ const Pricing = () => {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_YOUR_KEY_HERE', // Use environment variable
         amount: plan.price * 100, // Amount in paise
         currency: plan.currency,
-        name: 'ZenFlow',
-        description: `${plan.name} Meditation Subscription`,
+        name: 'TimeFlow',
+        description: `${plan.name} Time Management Subscription`,
         order_id: orderResponse.id,
         prefill: {
           name: user?.name || '',
@@ -183,8 +183,8 @@ const Pricing = () => {
   return (
     <div className="pricing-container">
       <div className="pricing-header">
-        <h1>Choose Your Wellness Plan</h1>
-        <p>Select the perfect meditation plan for your mindfulness journey</p>
+        <h1>Choose Your Plan</h1>
+        <p>Select the perfect plan for your time management needs</p>
       </div>
 
       {/* Success/Error Messages */}
@@ -193,7 +193,7 @@ const Pricing = () => {
           className="form-success"
           style={{ textAlign: 'center', marginBottom: '2rem' }}
         >
-          Payment successful! Welcome to your meditation journey!
+          Payment successful! Welcome to TimeFlow!
         </div>
       )}
 
@@ -243,7 +243,7 @@ const Pricing = () => {
                   Processing...
                 </>
               ) : (
-                'Start Journey'
+                'Get Started'
               )}
             </button>
           </div>
@@ -257,7 +257,7 @@ const Pricing = () => {
         <p>
           Need help?{' '}
           <a href="#" className="support-link">
-            Contact our wellness support team
+            Contact our support team
           </a>
         </p>
       </div>

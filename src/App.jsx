@@ -5,19 +5,39 @@ import {
   Navigate,
   Route,
   Routes,
+  useLocation,
 } from 'react-router-dom';
+
+import { Box, CircularProgress, Typography } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from '@mui/material/styles';
 
 import About from './components/About';
 import AuthLayout from './components/AuthLayout';
 import Dashboard from './components/Dashboard';
 import Header from './components/Header';
-import Home from './components/Home';
 import InstallPrompt from './components/InstallPrompt';
 import Pricing from './components/Pricing';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { checkAuthStatus } from './store/slices/authSlice';
+import { theme } from './theme/theme';
+
+// Component to manage body class
+const BodyClassManager = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/auth') {
+      document.body.classList.add('auth-page');
+    } else {
+      document.body.classList.remove('auth-page');
+    }
+  }, [location.pathname]);
+
+  return null;
+};
 
 const AppRoutes = () => {
   const dispatch = useAppDispatch();
@@ -32,12 +52,21 @@ const AppRoutes = () => {
     return (
       <>
         <Header />
-        <div className="main-content">
-          <div className="form-container">
-            <div className="loading" style={{ margin: '2rem auto' }}></div>
-            <p>Loading...</p>
-          </div>
-        </div>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: 'calc(100vh - 64px)',
+            gap: 2,
+          }}
+        >
+          <CircularProgress size={40} />
+          <Typography variant="body1" color="text.secondary">
+            Loading TimeFlow...
+          </Typography>
+        </Box>
       </>
     );
   }
@@ -45,9 +74,9 @@ const AppRoutes = () => {
   return (
     <>
       <Header />
-      <div className="main-content">
+      <Box component="main" sx={{ flexGrow: 1 }}>
         <Routes>
-          {/* Public routes - redirect to home if authenticated */}
+          {/* Public routes - redirect to dashboard if authenticated */}
           <Route
             path="/auth"
             element={
@@ -59,19 +88,10 @@ const AppRoutes = () => {
 
           {/* Protected routes - redirect to auth if not authenticated */}
           <Route
-            path="/home"
-            element={
-              <ProtectedRoute user={user}>
-                <Home />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
             path="/dashboard"
             element={
               <ProtectedRoute user={user}>
-                <Dashboard user={user} />
+                <Dashboard />
               </ProtectedRoute>
             }
           />
@@ -99,7 +119,7 @@ const AppRoutes = () => {
             path="/"
             element={
               user ? (
-                <Navigate to="/home" replace />
+                <Navigate to="/dashboard" replace />
               ) : (
                 <Navigate to="/auth" replace />
               )
@@ -111,14 +131,14 @@ const AppRoutes = () => {
             path="*"
             element={
               user ? (
-                <Navigate to="/home" replace />
+                <Navigate to="/dashboard" replace />
               ) : (
                 <Navigate to="/auth" replace />
               )
             }
           />
         </Routes>
-      </div>
+      </Box>
 
       {/* PWA Install Prompt */}
       <InstallPrompt />
@@ -128,9 +148,13 @@ const AppRoutes = () => {
 
 function App() {
   return (
-    <Router>
-      <AppRoutes />
-    </Router>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <BodyClassManager />
+        <AppRoutes />
+      </Router>
+    </ThemeProvider>
   );
 }
 

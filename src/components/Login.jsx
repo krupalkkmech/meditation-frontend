@@ -1,5 +1,20 @@
 import React, { useState } from 'react';
 
+import {
+  Email as EmailIcon,
+  Google as GoogleIcon,
+  Lock as LockIcon,
+} from '@mui/icons-material';
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  Divider,
+  TextField,
+  Typography,
+} from '@mui/material';
+
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { clearError, loginUser } from '../store/slices/authSlice';
 
@@ -63,68 +78,153 @@ const Login = ({ onSwitchToSignup }) => {
     dispatch(loginUser(formData));
   };
 
+  const handleGoogleLogin = () => {
+    // TODO: Implement Google OAuth login
+    console.log('Google login clicked');
+    // This will be implemented with Google OAuth
+  };
+
   return (
-    <div className="form-container">
-      <h2 className="form-title">Login</h2>
+    <Box sx={{ width: '100%' }}>
+      {/* Header */}
+      <Box sx={{ textAlign: 'center', mb: 4 }}>
+        <Typography
+          variant="h4"
+          component="h1"
+          gutterBottom
+          sx={{ fontWeight: 700 }}
+        >
+          Welcome Back
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
+          Sign in to your TimeFlow account
+        </Typography>
+      </Box>
 
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="email" className="form-label">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            className={`form-input ${errors.email ? 'error' : ''}`}
-            placeholder="Enter your email"
-            disabled={loading}
-          />
-          {errors.email && <div className="form-error">{errors.email}</div>}
-        </div>
+      {/* Google Login Button */}
+      <Button
+        fullWidth
+        variant="outlined"
+        size="large"
+        onClick={handleGoogleLogin}
+        disabled={loading}
+        startIcon={<GoogleIcon />}
+        sx={{
+          mb: 3,
+          py: 1.5,
+          borderColor: 'divider',
+          color: 'text.primary',
+          '&:hover': {
+            borderColor: 'primary.main',
+            backgroundColor: 'primary.50',
+          },
+        }}
+      >
+        Continue with Google
+      </Button>
 
-        <div className="form-group">
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            className={`form-input ${errors.password ? 'error' : ''}`}
-            placeholder="Enter your password"
-            disabled={loading}
-          />
-          {errors.password && (
-            <div className="form-error">{errors.password}</div>
-          )}
-        </div>
+      {/* Divider */}
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+        <Divider sx={{ flexGrow: 1 }} />
+        <Typography variant="body2" color="text.secondary" sx={{ px: 2 }}>
+          or
+        </Typography>
+        <Divider sx={{ flexGrow: 1 }} />
+      </Box>
 
-        {error && <div className="form-error">{error}</div>}
+      {/* Error Alert */}
+      {error && (
+        <Alert severity="error" sx={{ mb: 3 }}>
+          {error}
+        </Alert>
+      )}
 
-        <button type="submit" className="form-button" disabled={loading}>
+      {/* Login Form */}
+      <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
+        <TextField
+          fullWidth
+          label="Email"
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleInputChange}
+          error={!!errors.email}
+          helperText={errors.email}
+          disabled={loading}
+          InputProps={{
+            startAdornment: (
+              <EmailIcon sx={{ mr: 1, color: 'text.secondary' }} />
+            ),
+          }}
+          sx={{ mb: 3 }}
+        />
+
+        <TextField
+          fullWidth
+          label="Password"
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleInputChange}
+          error={!!errors.password}
+          helperText={errors.password}
+          disabled={loading}
+          InputProps={{
+            startAdornment: (
+              <LockIcon sx={{ mr: 1, color: 'text.secondary' }} />
+            ),
+          }}
+          sx={{ mb: 3 }}
+        />
+
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          size="large"
+          disabled={loading}
+          sx={{
+            py: 1.5,
+            mb: 3,
+            fontSize: '1.1rem',
+            fontWeight: 600,
+          }}
+        >
           {loading ? (
-            <>
-              <span className="loading"></span>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <CircularProgress size={20} color="inherit" />
               Logging in...
-            </>
+            </Box>
           ) : (
-            'Login'
+            'Login with Email'
           )}
-        </button>
-      </form>
+        </Button>
+      </Box>
 
-      <div className="form-switch">
-        Don't have an account?{' '}
-        <button type="button" onClick={onSwitchToSignup}>
-          Sign up
-        </button>
-      </div>
-    </div>
+      {/* Switch to Signup */}
+      <Box sx={{ textAlign: 'center' }}>
+        <Typography variant="body2" color="text.secondary">
+          Don't have an account?{' '}
+          <Button
+            variant="text"
+            onClick={onSwitchToSignup}
+            sx={{
+              color: 'primary.main',
+              textTransform: 'none',
+              fontWeight: 600,
+              p: 0,
+              minWidth: 'auto',
+              '&:hover': {
+                backgroundColor: 'transparent',
+                textDecoration: 'underline',
+              },
+            }}
+          >
+            Sign up
+          </Button>
+        </Typography>
+      </Box>
+    </Box>
   );
 };
 

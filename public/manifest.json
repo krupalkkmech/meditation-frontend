@@ -1,15 +1,15 @@
 {
-  "name": "ZenFlow - Meditation & Mindfulness",
-  "short_name": "ZenFlow",
-  "description": "A peaceful meditation app designed to help you find inner calm and mindfulness in your daily life",
+  "name": "TimeFlow - Smart Time Management",
+  "short_name": "TimeFlow",
+  "description": "A smart time management app that integrates with Google Calendar to help you organize your day efficiently",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f172a",
+  "background_color": "#f8fafc",
   "theme_color": "#6366f1",
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "en",
-  "categories": ["health", "lifestyle", "meditation", "wellness"],
+  "categories": ["productivity", "time-management", "calendar", "utilities"],
   "icons": [
     {
       "src": "/icons/icon-72x72.png",
@@ -62,10 +62,10 @@
   ],
   "shortcuts": [
     {
-      "name": "Meditate",
-      "short_name": "Meditate",
-      "description": "Start a meditation session",
-      "url": "/home",
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "View today's schedule and manage your time",
+      "url": "/dashboard",
       "icons": [
         {
           "src": "/icons/icon-96x96.png",

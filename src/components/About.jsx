@@ -4,21 +4,21 @@ const About = () => {
   return (
     <div className="about-container">
       <div className="about-content">
-        <h1 className="about-title">About ZenFlow</h1>
+        <h1 className="about-title">About TimeFlow</h1>
 
         <div className="about-text">
           <p>
-            ZenFlow is a peaceful meditation app designed to help you find inner
-            calm and mindfulness in your daily life.
+            TimeFlow is a smart time management app designed to help you
+            organize your day efficiently by integrating with Google Calendar.
           </p>
           <p>
-            We provide guided meditation sessions, ambient sounds, and
-            mindfulness tools to support your wellness journey and reduce
-            stress.
+            We provide intelligent scheduling, task management, and productivity
+            insights to help you make the most of your time.
           </p>
           <p>
-            Our mission is to make meditation accessible to everyone, helping
-            you cultivate peace, focus, and emotional well-being.
+            Our mission is to simplify your daily planning and boost your
+            productivity through seamless calendar integration and smart time
+            management tools.
           </p>
         </div>
       </div>
